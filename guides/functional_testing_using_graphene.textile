@@ -427,13 +427,13 @@ bc(prettify).. <!DOCTYPE html>
     </head>
     <body>
         <h:messages/>
-        <h:form id="loginForm" prependIds="false">
+        <h:form id="loginForm" prependId="false">
             <h:panelGrid columns="2">
                 <h:outputLabel for="userName">Username:</h:outputLabel>
                 <h:inputText id="userName" value="\#{credentials.username}"/>
                 <h:outputLabel for="password">Password:</h:outputLabel>
                 <h:inputSecret id="password" value="\#{credentials.password}"/>
-                <h:commandButton id="login" value="Log in"
+                <h:commandButton id="loginButton" value="Log in"
                     action="\#{loginController.login}"/>
             </h:panelGrid>
         </h:form>
@@ -453,12 +453,12 @@ bc(prettify).. <!DOCTYPE html>
 	<title>Home</title>
 </h:head>
 <h:body>
-	<h:messages />
-	<h:form prependIds="false">
-		<h:commandButton value="Who Am I ?" action="\#{loginController.renderLoggedIn}">
-			<f:ajax render="whoami" />
+	<h:messages id="facesMessage" />
+	<h:form prependId="false">
+		<h:commandButton value="Who Am I ?" action="\#{loginController.renderLoggedIn}" id="whoAmI">
+			<f:ajax render="signedAs" />
 		</h:commandButton>
-		<h:panelGroup id="whoami">
+		<h:panelGroup id="signedAs">
 			<h:panelGroup rendered="\#{loginController.renderedLoggedIn}">
 				<p>You are signed in as \#{currentUser.username}.</p>
 			</h:panelGroup>
@@ -620,6 +620,18 @@ private WebElement userName;
 
 @FindBy
 private WebElement password;
+
+@FindBy
+private WebElement loginButton;
+
+@FindBy
+private WebElement whoAmI;
+
+@FindBy
+private WebElement signedAs;
+
+@FindBy
+private WebElement facesMessage;
 
 @Test
 public void should_login_successfully() {
